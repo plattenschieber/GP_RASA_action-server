@@ -15,3 +15,16 @@ class ActionPrintTest(Action):
         print(tracker.latest_message)
 
         return [ConversationResumed()]
+
+
+class FallbackResponse(Action):
+    def name(self):
+        return "action_fallback"
+
+    def run(self, dispatcher, tracker, domain):
+
+        dispatcher.utter_message("This is our custom fallback action")
+
+        print(tracker.latest_message)
+
+        return [ConversationResumed()]
