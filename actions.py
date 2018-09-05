@@ -1,16 +1,17 @@
 from rasa_core_sdk import Action
-from rasa_core_sdk.events import SlotSet
+from rasa_core_sdk.events import ConversationResumed
 
-class ActionCheckRestaurants(Action):
+
+class ActionPrintTest(Action):
     def name(self):
         # type: () -> Text
-        return "action_check_restaurants"
+        return "action_print_test"
 
     def run(self, dispatcher, tracker, domain):
         # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
 
-        cuisine = tracker.get_slot('cuisine')
-        q = "select * from restaurants where cuisine='{0}' limit 1".format(cuisine)
-        result = db.query(q)
+        dispatcher.utter_message("I have printed a test!")
 
-        return [SlotSet("matches", result if result is not None else [])]
+        print(tracker.latest_message)
+
+        return [ConversationResumed()]
