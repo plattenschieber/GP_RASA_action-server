@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  chatbotaction:
+    image: gpb-chatbot-action-server
+    restart: always
+    ports:
+      - "5055:5055"

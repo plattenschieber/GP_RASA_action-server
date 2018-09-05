@@ -11,3 +11,10 @@ python -m rasa_core_sdk.endpoint --actions actions
 ```
 
 ## Docker
+Diesem Projekt liegt eine Dockerfile und ein Docker-Compose bei, diese stellen das Projekt als Docker-Container zu Verfügung.
+Um das Image zu bauen und zu starten müssen die folgenden Befehle ausgeführt werden.
+
+```bash
+docker build -t gpb-chatbot-action-server .
+docker-compose -p gpb -f docker/docker-compose.yaml up
+```
