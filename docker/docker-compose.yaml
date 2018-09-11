@@ -4,5 +4,10 @@ services:
   chatbotaction:
     image: gpb-chatbot-action-server
     restart: always
+    networks:
+      - chatbot
     ports:
       - "5055:5055"
+networks:
+  chatbot:
+    external: true
