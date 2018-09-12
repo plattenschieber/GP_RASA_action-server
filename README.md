@@ -18,3 +18,5 @@ Um das Image zu bauen und zu starten müssen die folgenden Befehle ausgeführt w
 docker build -t chatbot-action-server .
 docker-compose -p gpb -f docker/docker-compose.yaml up
 ```
+
+test 
