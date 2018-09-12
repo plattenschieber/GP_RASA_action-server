@@ -1,27 +1,24 @@
 from rasa_core_sdk import Action
-from rasa_core_sdk.events import ConversationResumed
+from rasa_core_sdk.events import ConversationResumed, UserUtteranceReverted, SlotSet
 import smtplib
 import email.message
 import io
 
 
-class ActionPrintTest(Action):
+class ActionSetBusinessAffair(Action):
     def name(self):
-        # type: () -> Text
-        return "action_print_test"
+        return "action_set_business_affair"
 
     def run(self, dispatcher, tracker, domain):
-        # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
-        # Dispatcher: send messages back to the user
-        # DialogueStateTracker:  the state tracker for the current user. You can access slot values using
-        # tracker.get_slot(slot_name) and the most recent user message is tracker.latest_message.text
+        business_affair = next(tracker.get_latest_entity_values('business_affair'), None)
 
-        dispatcher.utter_message("I have printed a test!")
-
-        print(tracker.latest_message)
-
-        return [ConversationResumed()]
-
+        if not business_affair:
+            dispatcher.utter_message("Please rephrase it again")
+            return [UserUtteranceReverted()]
+        elif business_affair == "ja" or business_affair == "richtig" or business_affair == "korrekt" or business_affair == "genau":
+            return [SlotSet("business_affair", True)]
+        else:
+            return [SlotSet("business_affair", False)]
 
 class SendEmail(Action):
     def name(self):
@@ -67,18 +64,6 @@ class SendEmail(Action):
         server.quit()
 
         dispatcher.utter_message("Email Send..")
-
-        print(tracker.latest_message)
-
-        return [ConversationResumed()]
-
-
-class FallbackResponse(Action):
-    def name(self):
-        return "action_fallback"
-
-    def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message("This is our custom fallback action")
 
         print(tracker.latest_message)
 
