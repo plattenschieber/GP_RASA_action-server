@@ -23,7 +23,7 @@ class ActionSetBusinessAffair(Action):
 class SendEmail(Action):
     def name(self):
         # type: () -> Text
-        return "action_save_address"
+        return "action_send_email"
 
     def run(self, dispatcher, tracker, domain):
         # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
