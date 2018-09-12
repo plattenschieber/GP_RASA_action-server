@@ -1,13 +1,6 @@
 version: '3'
 
 services:
-  chatbotaction:
-    image: gpb-chatbot-action-server
+  chatbot-action:
+    image: chatbot-action-server
     restart: always
-    networks:
-      - chatbot
-    ports:
-      - "5055:5055"
-networks:
-  chatbot:
-    external: true
