@@ -2,5 +2,4 @@ version: '3'
 
 services:
   chatbot-action:
-    image: chatbot-action-server
-    restart: always
+    image: docker.nexus.gpcatbot.archi-lab.io/chatbot/core:latest
