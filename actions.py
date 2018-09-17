@@ -20,7 +20,24 @@ class ActionSetBusinessAffair(Action):
         else:
             return [SlotSet("business_affair", False)]
 
-class SendEmail(Action):
+class ActionIsCarDamaged(Action):
+    def name(self):
+        return "action_is_car_damaged"
+
+    def run(self, dispatcher, tracker, domain):
+        car_is_damaged = next(tracker.get_latest_entity_values('car_is_damaged'), None)
+
+        if not car_is_damaged:
+            dispatcher.utter_message("Please rephrase it again")
+            return [UserUtteranceReverted()]
+        elif car_is_damaged == "wahr" or business_affair == "beschädigt" or business_affair == "ja":
+            return [SlotSet("car_is_damaged", True)]
+        elif car_is_damaged == "falsch" or car_is_damaged == "unbeschädigt" or car_is_damaged == "nein":
+            return [SlotSet("car_is_damaged", False)]
+        else:
+            return [SlotSet("car_is_damaged", False)]
+
+class ActionSendEmail(Action):
     def name(self):
         # type: () -> Text
         return "action_send_email"
