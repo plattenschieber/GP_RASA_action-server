@@ -4,7 +4,6 @@ import smtplib
 import email.message
 import io
 
-
 class ActionSetBusinessAffair(Action):
     def name(self):
         return "action_set_business_affair"
@@ -30,7 +29,7 @@ class ActionIsCarDamaged(Action):
         if not car_is_damaged:
             dispatcher.utter_message("Please rephrase it again")
             return [UserUtteranceReverted()]
-        elif car_is_damaged == "wahr" or business_affair == "beschädigt" or business_affair == "ja":
+        elif car_is_damaged == "wahr" or car_is_damaged == "beschädigt" or car_is_damaged == "ja":
             return [SlotSet("car_is_damaged", True)]
         elif car_is_damaged == "falsch" or car_is_damaged == "unbeschädigt" or car_is_damaged == "nein":
             return [SlotSet("car_is_damaged", False)]
@@ -85,7 +84,6 @@ class ActionSendEmail(Action):
         print(tracker.latest_message)
 
         return [ConversationResumed()]
-<<<<<<< HEAD
 
 class ActionSetCallback(Action):
     def name(self):
@@ -101,5 +99,3 @@ class ActionSetCallback(Action):
             return [SlotSet('is_callback_wanted', True)]
         else:
             return [SlotSet('is_callback_wanted', False)]
-=======
->>>>>>> 89467e5fec65d63eb2502b427311134d7e32f12d
