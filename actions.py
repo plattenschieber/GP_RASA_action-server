@@ -4,7 +4,6 @@ import smtplib
 import email.message
 import io
 
-
 class ActionSetBusinessAffair(Action):
     def name(self):
         return "action_set_business_affair"
@@ -13,14 +12,31 @@ class ActionSetBusinessAffair(Action):
         business_affair = next(tracker.get_latest_entity_values('business_affair'), None)
 
         if not business_affair:
-            dispatcher.utter_message("Please rephrase it again")
+            dispatcher.utter_message("Ich habe Sie nicht verstanden. Formulieren Sie bitte ihre letzte Nachricht um")
             return [UserUtteranceReverted()]
         elif business_affair == "ja" or business_affair == "richtig" or business_affair == "korrekt" or business_affair == "genau":
-            return [SlotSet("business_affair", True)]
+            return [SlotSet('business_affair', True)]
         else:
-            return [SlotSet("business_affair", False)]
+            return [SlotSet('business_affair', False)]
 
-class SendEmail(Action):
+class ActionIsCarDamaged(Action):
+    def name(self):
+        return "action_is_car_damaged"
+
+    def run(self, dispatcher, tracker, domain):
+        car_is_damaged = next(tracker.get_latest_entity_values('car_is_damaged'), None)
+
+        if not car_is_damaged:
+            dispatcher.utter_message("Please rephrase it again")
+            return [UserUtteranceReverted()]
+        elif car_is_damaged == "wahr" or car_is_damaged == "beschädigt" or car_is_damaged == "ja":
+            return [SlotSet("car_is_damaged", True)]
+        elif car_is_damaged == "falsch" or car_is_damaged == "unbeschädigt" or car_is_damaged == "nein":
+            return [SlotSet("car_is_damaged", False)]
+        else:
+            return [SlotSet("car_is_damaged", False)]
+
+class ActionSendEmail(Action):
     def name(self):
         # type: () -> Text
         return "action_send_email"
@@ -68,3 +84,18 @@ class SendEmail(Action):
         print(tracker.latest_message)
 
         return [ConversationResumed()]
+
+class ActionSetCallback(Action):
+    def name(self):
+        return "action_set_callback"
+
+    def run(self, dispatcher, tracker, domain):
+        is_callback_wanted = next(tracker.get_latest_entity_values('is_callback_wanted'), None)
+
+        if not is_callback_wanted:
+            dispatcher.utter_message("Ich habe Sie nicht verstanden. Formulieren Sie bitte ihre letzte Nachricht um")
+            return [UserUtteranceReverted()]
+        elif is_callback_wanted == "ja" or is_callback_wanted == "gerne":
+            return [SlotSet('is_callback_wanted', True)]
+        else:
+            return [SlotSet('is_callback_wanted', False)]
