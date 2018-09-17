@@ -3,8 +3,8 @@ version: '3'
 services:
   chatbot-action:
     image: docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server:latest
-  networks:
-    - chatbot
+    networks:
+      - chatbot
 networks:
   chatbot:
     external: true
