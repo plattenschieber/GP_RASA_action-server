@@ -16,28 +16,28 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">01. Anrede:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{code}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{form_of_address}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">02. Name:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{address}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{surname}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">03. Vorname:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.melder.vorname.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{first_name}</font></ul></td></tr>
 
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">04. Straße u. Hausnr.:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.melder.st.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{address_street} {address_street_number}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">05. Postleitzahl:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.melder.plz.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{address_zip_code}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">06. Ort:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.melder.ort.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{address_city}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">07. Telefon:&nbsp;</font></ul>
@@ -45,7 +45,7 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">08. Telefonnummer:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.melder.telefon.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{phone_number}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">09. Weitere Telefonnummer:&nbsp;</font></ul>
@@ -57,15 +57,15 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">11. E-Mail-Adresse:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.melder.email.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{e_mail}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">12. Versicherungsnummer:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.vn.vsnrvn.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{insurance_number}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">13. Amtliches Kennzeichen:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.kennzeichen.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{license_plate}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">14. Wird ein Kaskoschaden geltend gemacht?:&nbsp;</font></ul>
@@ -73,27 +73,27 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">15. Sind Sie vorsteuerabzugsberechtigt? (KF): &nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.melder.vorsteuerabzugsberechtigt.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">TBD</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">16. Sichtbare Schäden am Fahrzeug des VN:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.kasko.fahrzeugschaeden.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{car_is_damaged}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">17. Vorschäden am Fahrzeug des VN:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.kasko.fahrzeugvorschaeden.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">TBD</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">18. Wo kann das Fahrzeug des VN besichtigt werden? (KF):&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.besichtigungsort}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{current_location_of_car}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">19. Name, Anschrift (wenn Werkstatt oder sonstiges):&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.besichtigungsort.str}}, {{cc.userdata.sparte.kfz.besichtigungsort.plz}}, {{cc.userdata.sparte.kfz.besichtigungsort.ort}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">TBD, TBD, TBD</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">20. Telefonnummer (wenn Werkstatt oder sonstiges):&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.besichtigungsort.tel}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">TBD</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">21. Schadenmeldung erfolgt durch:&nbsp;</font></ul>
@@ -110,7 +110,7 @@ Der Kunde hat folgende Angaben gemacht:</font>
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">23. Datum:&nbsp;</font></ul>
 </td><td width="32%" valign="middle">
-<ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.datum.value.dayOfWeek}}, {{cc.userdata.sparte.kfz.datum.value.day}}.{{cc.userdata.sparte.kfz.datum.value.month}}.{{cc.userdata.sparte.kfz.datum.value.year}}</font></ul></td></tr>
+<ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{date_of_damage}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">24. Uhrzeit:&nbsp;</font></ul>
@@ -118,7 +118,7 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">25. Wo hat sich der Schaden ereignet?:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.schadenort}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{damage_location}</font></ul></td></tr>
 
 
 <tr valign="top"><td width="68%" valign="middle">
@@ -127,11 +127,11 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">27. Schadenursache:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.sparte.kfz.schadenort}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{cause_of_damage}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">28. Wie hat sich der Unfall ereignet?:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><img width="1" height="1" src="./mail_html_files/ecblank.gif" border="0" alt=""></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{description_of_accident}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">29. Wer hat den Unfall verursacht?:&nbsp;</font></ul>
@@ -139,23 +139,23 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">30. Wer lenkte das Fahrzeug des VN zum Schadenzeitpunkt?:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><img width="1" height="1" src="./mail_html_files/ecblank.gif" border="0" alt=""></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{first_name_of_driver}{surname_of_driver}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">31. Anrede des Fahrers, wenn nicht VN:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{sparte.kfz.fahrer.anrede}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">TBD</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">32. Vorname des Fahrers, wenn nicht VN:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{sparte.kfz.fahrer.vorname}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{first_name_of_driver}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">33. Nachame des Fahrers, wenn nicht VN:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{sparte.kfz.fahrer.nachname}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{surname_of_driver}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">34. Geburtsdatum Fahrer, wenn nicht VN:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{sparte.kfz.fahrer.gebdatum.value}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">TBD</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">35. Gab es Zeugen für den Unfall?:&nbsp;</font></ul>
@@ -175,11 +175,11 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">38. Vorname:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><img width="1" height="1" src="./mail_html_files/ecblank.gif" border="0" alt=""></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{first_name_injured_party}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">39. Name:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><img width="1" height="1" src="./mail_html_files/ecblank.gif" border="0" alt=""></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{surname_injured_party}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">40. Straße u. Hausnr.:&nbsp;</font></ul>
@@ -203,7 +203,7 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">45. Telefonnummer:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><img width="1" height="1" src="./mail_html_files/ecblank.gif" border="0" alt=""></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{phone_number_injured_party}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">46. Weitere Telefonnummer:&nbsp;</font></ul>
@@ -215,7 +215,7 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">48. Amtliches Kennzeichen:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><img width="1" height="1" src="./mail_html_files/ecblank.gif" border="0" alt=""></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{license_plate}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">49. Hersteller:&nbsp;</font></ul>
@@ -291,7 +291,7 @@ Der Kunde hat folgende Angaben gemacht:</font>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">08. Telefonnummer:&nbsp;</font></ul>
-</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{{cc.userdata.phone}}</font></ul></td></tr>
+</td><td width="32%" valign="middle"><ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">{phone_number}</font></ul></td></tr>
 
 <tr valign="top"><td width="68%" valign="middle">
 <ul style="padding-left: 5pt"><font size="3" color="#333333" face="Arial">11. E-Mail-Adresse:&nbsp;</font></ul>

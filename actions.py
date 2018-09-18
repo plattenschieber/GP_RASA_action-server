@@ -47,17 +47,66 @@ class ActionSendEmail(Action):
         # DialogueStateTracker:  the state tracker for the current user. You can access slot values using
         # tracker.get_slot(slot_name) and the most recent user message is tracker.latest_message.text
 
-        address = tracker.get_slot("address_street")
-        address_number = tracker.get_slot("address_street_number")
-        print("String Adresse: ", address, address_number)
+        print("In Methode")
+        # region data
+        form_of_address = tracker.get_slot("form_of_address")
+        first_name = tracker.get_slot("first_name")
+        surname = tracker.get_slot("surname")
+        address_street = tracker.get_slot("address_street")
+        address_street_number = tracker.get_slot("address_street_number")
+        address_zip_code = tracker.get_slot("address_zip_code")
+        address_city = tracker.get_slot("address_city")
+        phone_number = tracker.get_slot("phone_number")
+        e_mail = tracker.get_slot("e_mail")
+        business_affair = tracker.get_slot("business_affair")
+        car_is_damaged = tracker.get_slot("car_is_damaged")
+        counterpart_is_insured = tracker.get_slot("counterpart_is_insured")
+        damage_from_own_car = tracker.get_slot("damage_from_own_car")
+        first_name_insured_party = tracker.get_slot("first_name_insured_party")
+        surname_insured_party = tracker.get_slot("surname_insured_party")
+        insurance_number = tracker.get_slot("insurance_number")
+        first_name_injured_party = tracker.get_slot("first_name_injured_party")
+        surname_injured_party = tracker.get_slot("surname_injured_party")
+        phone_number_injured_party = tracker.get_slot("phone_number_injured_party")
+        insurance_number_injured_party = tracker.get_slot("insurance_number_injured_party")
+        insured_party_is_driver = tracker.get_slot("insured_party_is_driver")
+        license_plate = tracker.get_slot("license_plate")
+        date_of_damage = tracker.get_slot("date_of_damage")
+        cause_of_damage = tracker.get_slot("cause_of_damage")
+        damage_location = tracker.get_slot("damage_location")
+        description_of_accident = tracker.get_slot("description_of_accident")
+        current_location_of_car = tracker.get_slot("current_location_of_car")
+        is_callback_wanted = tracker.get_slot("is_callback_wanted")
+        # Überprüfung, wer der Fahrer war:
+        surname_of_driver = "Keine Angabe"
+        first_name_of_driver = "Keine Angabe"
+        if(insured_party_is_driver == True):
+            surname_of_driver = surname_insured_party
+            first_name_of_driver = first_name_insured_party
+        else:
+            surname_of_driver = "TBD: Name des Geschädigten"
+            first_name_of_driver = "TBD: Name des Geschädigten"
 
-        #create message object instance
+        # endregion data
+        print("Daten geladen")
+        # create message object instance
         msg = email.message.Message()
 
-        #Open HTML File
+        # Open HTML File
         file = io.open("robotics_fixed.html", "r", encoding='utf-8').read()
 
-        email_content = file.format(code=address_number, address=address)
+        email_content = file.format(form_of_address=form_of_address, surname=surname, first_name=first_name,
+                                    address_street=address_street, address_street_number=address_street_number,
+                                    address_zip_code=address_zip_code, address_city=address_city,
+                                    phone_number=phone_number, e_mail=e_mail, insurance_number=insurance_number,
+                                    license_plate=license_plate, car_is_damaged=car_is_damaged,
+                                    current_location_of_car=current_location_of_car, date_of_damage=date_of_damage,
+                                    damage_location=damage_location, cause_of_damage=cause_of_damage,
+                                    description_of_accident=description_of_accident,
+                                    first_name_of_driver=first_name_of_driver, surname_of_driver=surname_of_driver,
+                                    first_name_injured_party=first_name_injured_party,
+                                    surname_injured_party=surname_injured_party,
+                                    phone_number_injured_party=phone_number_injured_party)
 
         # setup the parameters of the message
         password = "GuidedProjectWS18/19"
