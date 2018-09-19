@@ -3,8 +3,7 @@ from rasa_core_sdk.events import ConversationResumed, UserUtteranceReverted, Slo
 import smtplib
 import email.message
 import io
-from rasa_core.actions.action import Action
-from rasa_core.events import SlotSet
+from rasa_core_sdk.events import SlotSet
 from rasa_core_sdk.forms import FormAction
 from rasa_core_sdk.forms import EntityFormField
 from rasa_core_sdk.forms import BooleanFormField
