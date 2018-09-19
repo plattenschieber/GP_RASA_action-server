@@ -1,4 +1,4 @@
-package tutorial;
+package io.archi-lab.chatbot;
 
 import com.atlassian.bamboo.specs.api.builders.plan.Plan;
 import com.atlassian.bamboo.specs.api.exceptions.PropertiesValidationException;
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class PlanSpecTest {
     @Test
-    public void checkYourPlanOffline() throws PropertiesValidationException {
+    public void checkYourPlanOffline() {
         Plan plan = new PlanSpec().createPlan();
 
         EntityPropertiesBuilders.build(plan);
