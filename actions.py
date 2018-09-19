@@ -3,6 +3,11 @@ from rasa_core_sdk.events import ConversationResumed, UserUtteranceReverted, Slo
 import smtplib
 import email.message
 import io
+from rasa_core.actions.action import Action
+from rasa_core.events import SlotSet
+from rasa_core_sdk.forms import FormAction
+from rasa_core_sdk.forms import EntityFormField
+from rasa_core_sdk.forms import BooleanFormField
 
 class ActionSetBusinessAffair(Action):
     def name(self):
@@ -148,3 +153,27 @@ class ActionSetCallback(Action):
             return [SlotSet('is_callback_wanted', True)]
         else:
             return [SlotSet('is_callback_wanted', False)]
+
+
+class ActionAskKontakt(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            EntityFormField("first_name", "first_name"),
+            EntityFormField("surname", "surname"),
+            EntityFormField("street_address", "street_address"),
+            BooleanFormField("business_affair", "confirm", "deny")
+        ]
+
+    def name(self):
+        return 'action_ask_kontakt'
+
+    def submit(self, dispatcher, tracker, domain):
+        first_name = tracker.get_slot("first_name")
+        surname = tracker.get_slot("surname")
+        business_affair = tracker.get_slot("business_affair")
+        print(first_name, surname, business_affair)
+        return []
