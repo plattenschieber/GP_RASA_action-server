@@ -1,4 +1,4 @@
-package tutorial;
+package io.archi_lab.chatbot;
 
 import com.atlassian.bamboo.specs.api.BambooSpec;
 import com.atlassian.bamboo.specs.api.builders.BambooKey;
