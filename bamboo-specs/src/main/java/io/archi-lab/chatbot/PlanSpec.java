@@ -85,9 +85,12 @@ public class PlanSpec {
                 .delete(new BranchCleanup())
                 .notificationForCommitters());
         return plan;
-    }ermissions planPermission() {anPermissions planPermission = new PlanPermissions(new PlanIdentifier("CHAT", "ACT"))
+    }
+
+    public PlanPermissions planPermission() {
+        final PlanPermissions planPermission = new PlanPermissions(new PlanIdentifier("CHAT", "ACT"))
             .permissions(new Permissions()
-                .userPermissions("bamboo", PermissionType.EDIT, PermissionType.VIEW, PermissionType.ADMIN, PermissionType.CLONE, PermissionType.BUILD)
+                .userPermissions("bamboo", PermissionType.ADMIN, PermissionType.VIEW, PermissionType.CLONE, PermissionType.BUILD, PermissionType.EDIT)
                 .loggedInUserPermissions(PermissionType.VIEW)
                 .anonymousUserPermissionView());
         return planPermission;
