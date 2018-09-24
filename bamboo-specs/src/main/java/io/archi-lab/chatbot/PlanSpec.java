@@ -49,18 +49,32 @@ public class PlanSpec {
                     .tasks(new VcsCheckoutTask()
                             .description("Checkout the repository")
                             .checkoutItems(new CheckoutItem().defaultRepository()),
-                        new ScriptTask()
-                            .description("Print docker-compose")
-                            .enabled(false)
-                            .inlineBody("less ./docker/docker-compose.yaml"),
+                            new ScriptTask()
+                            .description("Create commit hash variable file")
+                            .inlineBody("echo \"commit-hash=$(date +%s%N)\" > ./commit-hash"),
+                        new InjectVariablesTask()
+                            .description("Inject the commit hash variable")
+                            .path("./commit-hash")
+                            .namespace("inject")
+                            .scope(InjectVariablesScope.RESULT),
                         new DockerBuildImageTask()
                             .description("Build the Docker image")
-                            .imageName("docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server:latest")
+                            .imageName("docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server")
                             .useCache(true)
                             .dockerfileInWorkingDir(),
+                        new ScriptTask()
+                            .description("Tag the Docker image with commit hash")
+                            .inlineBody("docker tag docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server:${bamboo.inject.commit-hash}"),
                         new DockerPushImageTask()
-                            .customRegistryImage("docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server:latest")
-                            .defaultAuthentication())))
+                            .customRegistryImage("docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server")
+                            .defaultAuthentication(),
+                        new DockerPushImageTask()
+                            .customRegistryImage("docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server:${bamboo.inject.commit-hash}")
+                            .defaultAuthentication(),
+                        new ScriptTask()
+                            .description("Remove old images from Nexus Docker repository")
+                            .inlineBody("echo \"# Nexus Credentials\\nnexus_host = \\\"https://nexus.gpchatbot.archi-lab.io\\\"\\nnexus_username = \\\"bamboo\\\"\\nnexus_password = \\\"gpchatbot\\\"\\nnexus_repository = \\\"docker-hosted\\\"\" > .credentials\nnexus-cli image delete -name chatbot/action-server -keep 21"))
+                    .requirements(new Requirement("system.builder.command.nexus-cli"))))
             .linkedRepositories("chatbot-action-server (master)")
 
             .triggers(new BitbucketServerTrigger())
@@ -68,12 +82,9 @@ public class PlanSpec {
                 .delete(new BranchCleanup())
                 .notificationForCommitters());
         return plan;
-    }
-
-    public PlanPermissions planPermission() {
-        final PlanPermissions planPermission = new PlanPermissions(new PlanIdentifier("CHAT", "ACT"))
+    }ermissions planPermission() {anPermissions planPermission = new PlanPermissions(new PlanIdentifier("CHAT", "ACT"))
             .permissions(new Permissions()
-                .userPermissions("jlengelsen", PermissionType.EDIT, PermissionType.VIEW, PermissionType.ADMIN, PermissionType.CLONE, PermissionType.BUILD)
+                .userPermissions("bamboo", PermissionType.EDIT, PermissionType.VIEW, PermissionType.ADMIN, PermissionType.CLONE, PermissionType.BUILD)
                 .loggedInUserPermissions(PermissionType.VIEW)
                 .anonymousUserPermissionView());
         return planPermission;

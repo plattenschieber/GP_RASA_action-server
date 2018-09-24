@@ -8,7 +8,7 @@ import org.junit.Test;
 public class PlanSpecTest {
     @Test
     public void checkYourPlanOffline() {
-        Plan plan = new PlanSpec().createPlan();
+        Plan plan = new PlanSpec().plan();
 
         EntityPropertiesBuilders.build(plan);
     }
