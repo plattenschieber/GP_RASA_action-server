@@ -1,4 +1,4 @@
-package io.archi-lab.chatbot;
+package io.archilab.gpchatbot;
 
 import com.atlassian.bamboo.specs.api.builders.plan.Plan;
 import com.atlassian.bamboo.specs.api.exceptions.PropertiesValidationException;
