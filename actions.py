@@ -8,37 +8,6 @@ from rasa_core_sdk.forms import FormAction
 from rasa_core_sdk.forms import EntityFormField
 from rasa_core_sdk.forms import BooleanFormField
 
-class ActionSetBusinessAffair(Action):
-    def name(self):
-        return "action_set_business_affair"
-
-    def run(self, dispatcher, tracker, domain):
-        business_affair = next(tracker.get_latest_entity_values('business_affair'), None)
-
-        if not business_affair:
-            dispatcher.utter_message("Ich habe Sie nicht verstanden. Formulieren Sie bitte ihre letzte Nachricht um")
-            return [UserUtteranceReverted()]
-        elif business_affair == "ja" or business_affair == "richtig" or business_affair == "korrekt" or business_affair == "genau":
-            return [SlotSet('business_affair', True)]
-        else:
-            return [SlotSet('business_affair', False)]
-
-class ActionIsCarDamaged(Action):
-    def name(self):
-        return "action_is_car_damaged"
-
-    def run(self, dispatcher, tracker, domain):
-        car_is_damaged = next(tracker.get_latest_entity_values('car_is_damaged'), None)
-
-        if not car_is_damaged:
-            dispatcher.utter_message("Please rephrase it again")
-            return [UserUtteranceReverted()]
-        elif car_is_damaged == "wahr" or car_is_damaged == "beschädigt" or car_is_damaged == "ja":
-            return [SlotSet("car_is_damaged", True)]
-        elif car_is_damaged == "falsch" or car_is_damaged == "unbeschädigt" or car_is_damaged == "nein":
-            return [SlotSet("car_is_damaged", False)]
-        else:
-            return [SlotSet("car_is_damaged", False)]
 
 class ActionSendEmail(Action):
     def name(self):
@@ -56,8 +25,7 @@ class ActionSendEmail(Action):
         form_of_address = tracker.get_slot("form_of_address")
         first_name = tracker.get_slot("first_name")
         surname = tracker.get_slot("surname")
-        address_street = tracker.get_slot("address_street")
-        address_street_number = tracker.get_slot("address_street_number")
+        street_address = tracker.get_slot("street_address")
         address_zip_code = tracker.get_slot("address_zip_code")
         address_city = tracker.get_slot("address_city")
         phone_number = tracker.get_slot("phone_number")
@@ -100,7 +68,7 @@ class ActionSendEmail(Action):
         file = io.open("robotics_fixed.html", "r", encoding='utf-8').read()
 
         email_content = file.format(form_of_address=form_of_address, surname=surname, first_name=first_name,
-                                    address_street=address_street, address_street_number=address_street_number,
+                                    street_address=street_address,
                                     address_zip_code=address_zip_code, address_city=address_city,
                                     phone_number=phone_number, e_mail=e_mail, insurance_number=insurance_number,
                                     license_plate=license_plate, car_is_damaged=car_is_damaged,
@@ -138,6 +106,7 @@ class ActionSendEmail(Action):
 
         return [ConversationResumed()]
 
+
 class ActionSetCallback(Action):
     def name(self):
         return "action_set_callback"
@@ -154,25 +123,230 @@ class ActionSetCallback(Action):
             return [SlotSet('is_callback_wanted', False)]
 
 
-class ActionAskKontakt(FormAction):
+class ActionAskContactDetails(FormAction):
 
     RANDOMIZE = False
 
     @staticmethod
     def required_fields():
         return [
+            EntityFormField("form_of_address", "form_of_address"),
             EntityFormField("first_name", "first_name"),
             EntityFormField("surname", "surname"),
             EntityFormField("street_address", "street_address"),
+            EntityFormField("address_zip_code", "address_zip_code"),
+            EntityFormField("address_city", "address_city"),
+            EntityFormField("phone_number", "phone_number"),
+            EntityFormField("e_mail", "e_mail"),
             BooleanFormField("business_affair", "confirm", "deny")
         ]
 
     def name(self):
-        return 'action_ask_kontakt'
+        return 'action_ask_contact_details'
 
     def submit(self, dispatcher, tracker, domain):
         first_name = tracker.get_slot("first_name")
         surname = tracker.get_slot("surname")
         business_affair = tracker.get_slot("business_affair")
         print(first_name, surname, business_affair)
+        return []
+
+
+class ActionAskBranch(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            EntityFormField("branch", "branch")
+        ]
+
+    def name(self):
+        return 'action_ask_branch'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskCarIsDamaged(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            BooleanFormField("car_is_damaged", "confirm", "deny")
+        ]
+
+    def name(self):
+        return 'action_ask_car_is_damaged'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskCounterpartInsuredAtZurich(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            BooleanFormField("counterpart_is_insured", "confirm", "deny")
+        ]
+
+    def name(self):
+        return 'action_ask_counterpart_insured_at_zurich'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskLiabilityContactData(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            EntityFormField("first_name_insured_party", "first_name_insured_party"),
+            EntityFormField("surname_insured_party", "surname_insured_party"),
+            EntityFormField("insurance_number", "insurance_number")
+        ]
+
+    def name(self):
+        return 'action_ask_liability_contact_data'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskKFZ(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            EntityFormField("license_plate", "license_plate"),
+            EntityFormField("date_of_damage", "date_of_damage"),
+            EntityFormField("cause_of_damage", "cause_of_damage"),
+            EntityFormField("damage_location", "damage_location"),
+            EntityFormField("description_of_accident", "description_of_accident"),
+            EntityFormField("current_location_of_car", "current_location_of_car")
+        ]
+
+    def name(self):
+        return 'action_ask_kfz'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskIsCallbackWanted(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            BooleanFormField("is_callback_wanted", "confirm", "deny")
+        ]
+
+    def name(self):
+        return 'action_ask_is_callback_wanted'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskCallbackPhoneNumber(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            EntityFormField("callback_phone_number", "callback_phone_number"),
+            EntityFormField("reachability_date", "reachability_date")
+        ]
+
+    def name(self):
+        return 'action_ask_callback_information'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskIsDamageCausedByOwnCar(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            BooleanFormField("damage_from_own_car", "confirm", "deny")
+        ]
+
+    def name(self):
+        return 'action_ask_is_damage_caused_by_own_car'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskKFZOtherParty(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            EntityFormField("first_name_insured_party", "first_name_insured_party"),
+            EntityFormField("surname_insured_party", "surname_insured_party"),
+            EntityFormField("insurance_number", "insurance_number")
+        ]
+
+    def name(self):
+        return 'action_ask_kfz_other_party'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskInsuredPartyDriver(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            BooleanFormField("insured_party_is_driver", "confirm", "deny")
+        ]
+
+    def name(self):
+        return 'action_ask_insured_party_driver'
+
+    def submit(self, dispatcher, tracker, domain):
+        return []
+
+
+class ActionAskInsuredPartyDriverInformations(FormAction):
+
+    RANDOMIZE = False
+
+    @staticmethod
+    def required_fields():
+        return [
+            EntityFormField("form_of_address_of_driver", "form_of_address_of_driver"),
+            EntityFormField("first_name_of_driver", "first_name_of_driver"),
+            EntityFormField("surname_of_driver", "surname_of_driver"),
+            EntityFormField("birth_date_of_driver", "birth_date_of_driver")
+        ]
+
+    def name(self):
+        return 'action_ask_insured_party_driver_informations'
+
+    def submit(self, dispatcher, tracker, domain):
         return []
