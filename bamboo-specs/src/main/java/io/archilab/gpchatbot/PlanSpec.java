@@ -2,7 +2,6 @@ package io.archilab.gpchatbot;
 
 import com.atlassian.bamboo.specs.api.BambooSpec;
 import com.atlassian.bamboo.specs.api.builders.BambooKey;
-import com.atlassian.bamboo.specs.api.builders.BambooOid;
 import com.atlassian.bamboo.specs.api.builders.deployment.Deployment;
 import com.atlassian.bamboo.specs.api.builders.deployment.Environment;
 import com.atlassian.bamboo.specs.api.builders.deployment.ReleaseNaming;
@@ -40,12 +39,10 @@ public class PlanSpec {
 
   public Plan plan() {
     final Plan plan = new Plan(new Project()
-        .oid(new BambooOid("ky5ricqu8qv5"))
         .key(new BambooKey("CHAT"))
         .name("Chatbot"),
         "action-server",
         new BambooKey("ACT"))
-        .oid(new BambooOid("kxw2ardmf01v"))
         .description("Build the Rasa custom action server")
         .pluginConfigurations(new ConcurrentBuilds()
             .useSystemWideDefault(false))
@@ -111,10 +108,8 @@ public class PlanSpec {
   }
 
   public Deployment deployment() {
-    final Deployment deployment = new Deployment(new PlanIdentifier("CHAT", "ACT")
-        .oid(new BambooOid("kxw2ardmf01v")),
+    final Deployment deployment = new Deployment(new PlanIdentifier("CHAT", "ACT"),
         "action-server-deployment")
-        .oid(new BambooOid("ky8ja8kbwphd"))
         .releaseNaming(new ReleaseNaming("release-23")
             .autoIncrement(true))
         .environments(new Environment("Production")
