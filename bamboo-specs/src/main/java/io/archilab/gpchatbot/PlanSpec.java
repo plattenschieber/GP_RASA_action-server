@@ -111,7 +111,7 @@ public class PlanSpec {
   }
 
   public Deployment deployment() {
-    final Deployment rootObject = new Deployment(new PlanIdentifier("CHAT", "ACT")
+    final Deployment deployment = new Deployment(new PlanIdentifier("CHAT", "ACT")
         .oid(new BambooOid("kxw2ardmf01v")),
         "action-server-deployment")
         .oid(new BambooOid("ky8ja8kbwphd"))
@@ -129,7 +129,7 @@ public class PlanSpec {
                     .inlineBody(
                         "eval $(docker-machine env gpchatbotprod)\ndocker stack deploy --with-registry-auth -c ./artifacts/docker-compose.yaml action-server"))
             .triggers(new AfterSuccessfulBuildPlanTrigger()));
-    return rootObject;
+    return deployment;
   }
 
   public DeploymentPermissions deploymentPermission() {
