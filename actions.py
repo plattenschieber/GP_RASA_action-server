@@ -27,8 +27,8 @@ class ActionSendEmail(Action):
         street_address = tracker.get_slot("street_address")
         address_zip_code = tracker.get_slot("address_zip_code")
         address_city = tracker.get_slot("address_city")
-        phone_number = tracker.get_slot("phone_number")
-        e_mail = tracker.get_slot("e_mail")
+        phone_number = tracker.get_slot("phone-number")
+        email = tracker.get_slot("email")
         business_affair = tracker.get_slot("business_affair")
 
         if tracker.get_slot("car_is_damaged") == True:
@@ -92,10 +92,11 @@ class ActionSendEmail(Action):
         # Open HTML File
         file = io.open("robotics_fixed.html", "r", encoding='utf-8').read()
 
+        # region fill email_content
         email_content = file.format(form_of_address=form_of_address, surname=surname, first_name=first_name,
                                     street_address=street_address,
                                     address_zip_code=address_zip_code, address_city=address_city,
-                                    phone_number=phone_number, e_mail=e_mail, insurance_number=insurance_number,
+                                    phone_number=phone_number, email=email, insurance_number=insurance_number,
                                     license_plate=license_plate, car_is_damaged=car_is_damaged,
                                     current_location_of_car=current_location_of_car, date_of_damage=date_of_damage,
                                     damage_location=damage_location, cause_of_damage=cause_of_damage,
@@ -125,6 +126,7 @@ class ActionSendEmail(Action):
                                     someone_injured=someone_injured,
                                     damage_report_by=damage_report_by
                                     )
+        # endregion fill email_content
 
         # setup the parameters of the message
         password = "GuidedProjectWS18/19"
@@ -153,22 +155,6 @@ class ActionSendEmail(Action):
         return [ConversationResumed()]
 
 
-class ActionSetCallback(Action):
-    def name(self):
-        return "action_set_callback"
-
-    def run(self, dispatcher, tracker, domain):
-        is_callback_wanted = next(tracker.get_latest_entity_values('is_callback_wanted'), None)
-
-        if not is_callback_wanted:
-            dispatcher.utter_message("Ich habe Sie nicht verstanden. Formulieren Sie bitte ihre letzte Nachricht um")
-            return [UserUtteranceReverted()]
-        elif is_callback_wanted == "ja" or is_callback_wanted == "gerne":
-            return [SlotSet('is_callback_wanted', True)]
-        else:
-            return [SlotSet('is_callback_wanted', False)]
-
-
 class ActionAskContactDetails(FormAction):
 
     RANDOMIZE = False
@@ -180,10 +166,10 @@ class ActionAskContactDetails(FormAction):
             EntityFormField("entity_PER", "PER"),
             EntityFormField("surname", "surname"),
             EntityFormField("street_address", "street_address"),
-            EntityFormField("address_zip_code", "address_zip_code"),
+            EntityFormField("number", "number"),
             EntityFormField("address_city", "address_city"),
-            EntityFormField("phone_number", "phone_number"),
-            EntityFormField("e_mail", "e_mail"),
+            EntityFormField("phone-number", "phone-number"),
+            EntityFormField("email", "email"),
             BooleanFormField("business_affair", "confirm", "deny")
         ]
 
@@ -191,10 +177,8 @@ class ActionAskContactDetails(FormAction):
         return 'action_ask_contact_details'
 
     def submit(self, dispatcher, tracker, domain):
-        first_name = tracker.get_slot("PER")
-        surname = tracker.get_slot("surname")
-        business_affair = tracker.get_slot("business_affair")
-        print(first_name, surname, business_affair)
+        SlotSet("address_zip_code", tracker.get_slot("number"))
+        SlotSet("phone_number_user", tracker.get_slot("phone-number"))
         return []
 
 
