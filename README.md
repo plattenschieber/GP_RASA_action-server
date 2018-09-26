@@ -16,7 +16,5 @@ Um das Image zu bauen und zu starten müssen die folgenden Befehle ausgeführt w
 
 ```bash
 docker build -t docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server .
-docker-compose -p gpb -f docker/docker-compose.yaml up
+docker-compose -p gpb -f docker/docker-compose.yaml up -d
 ```
-
-test 
