@@ -22,7 +22,7 @@ class ActionSendEmail(Action):
 
         # region data
         form_of_address = tracker.get_slot("form_of_address")
-        first_name = tracker.get_slot("first_name")
+        first_name = tracker.get_slot("PER")
         surname = tracker.get_slot("surname")
         street_address = tracker.get_slot("street_address")
         address_zip_code = tracker.get_slot("address_zip_code")
@@ -177,7 +177,7 @@ class ActionAskContactDetails(FormAction):
     def required_fields():
         return [
             EntityFormField("form_of_address", "form_of_address"),
-            EntityFormField("first_name", "first_name"),
+            EntityFormField("entity_PER", "PER"),
             EntityFormField("surname", "surname"),
             EntityFormField("street_address", "street_address"),
             EntityFormField("address_zip_code", "address_zip_code"),
@@ -191,7 +191,7 @@ class ActionAskContactDetails(FormAction):
         return 'action_ask_contact_details'
 
     def submit(self, dispatcher, tracker, domain):
-        first_name = tracker.get_slot("first_name")
+        first_name = tracker.get_slot("PER")
         surname = tracker.get_slot("surname")
         business_affair = tracker.get_slot("business_affair")
         print(first_name, surname, business_affair)
