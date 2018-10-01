@@ -25,6 +25,7 @@ class ActionSendEmail(Action):
         first_name = tracker.get_slot("PER")
         surname = tracker.get_slot("surname")
         street_address = tracker.get_slot("street_address")
+        street_number = tracker.get_slot("street_number")
         address_zip_code = tracker.get_slot("address_zip_code")
         address_city = tracker.get_slot("address_city")
         phone_number = tracker.get_slot("phone-number")
@@ -95,6 +96,7 @@ class ActionSendEmail(Action):
         # region fill email_content
         email_content = file.format(form_of_address=form_of_address, surname=surname, first_name=first_name,
                                     street_address=street_address,
+                                    street_number= street_number,
                                     address_zip_code=address_zip_code, address_city=address_city,
                                     phone_number=phone_number, email=email, insurance_number=insurance_number,
                                     license_plate=license_plate, car_is_damaged=car_is_damaged,
@@ -181,6 +183,13 @@ class ActionAskContactDetails(FormAction):
         SlotSet("phone_number_user", tracker.get_slot("phone-number"))
         return []
 
+class ActionSaveStreetNumber(Action):
+    def name(self):
+        return "action_save_street_number"
+
+    def run(self, dispatcher, tracker, domain):
+        SlotSet("street_number", tracker.get_slot("number"))
+        return []
 
 class ActionAskBranch(FormAction):
 
@@ -242,13 +251,14 @@ class ActionAskLiabilityContactData(FormAction):
         return [
             EntityFormField("first_name_insured_party", "first_name_insured_party"),
             EntityFormField("surname_insured_party", "surname_insured_party"),
-            EntityFormField("insurance_number", "insurance_number")
+            EntityFormField("number", "number")
         ]
 
     def name(self):
         return 'action_ask_liability_contact_data'
 
     def submit(self, dispatcher, tracker, domain):
+        SlotSet("insurance_number", tracker.get_slot("number"))
         return []
 
 
@@ -260,8 +270,7 @@ class ActionAskKFZ(FormAction):
     def required_fields():
         return [
             EntityFormField("license_plate", "license_plate"),
-            EntityFormField("date_of_damage", "date_of_damage"),
-            EntityFormField("time_of_damage", "time_of_damage"),
+            EntityFormField("time", "time"),
             EntityFormField("cause_of_damage", "cause_of_damage"),
             EntityFormField("damage_location", "damage_location"),
             EntityFormField("description_of_accident", "description_of_accident"),
@@ -272,6 +281,7 @@ class ActionAskKFZ(FormAction):
         return 'action_ask_kfz'
 
     def submit(self, dispatcher, tracker, domain):
+        SlotSet("date_of_damage", tracker.get_slot("time"))
         return []
 
 
@@ -299,7 +309,7 @@ class ActionAskCallbackPhoneNumber(FormAction):
     @staticmethod
     def required_fields():
         return [
-            EntityFormField("callback_phone_number", "callback_phone_number"),
+            EntityFormField("phone-number", "phone-number"),
             EntityFormField("reachability_date", "reachability_date")
         ]
 
@@ -307,6 +317,7 @@ class ActionAskCallbackPhoneNumber(FormAction):
         return 'action_ask_callback_information'
 
     def submit(self, dispatcher, tracker, domain):
+        SlotSet("callback_phone_number", "phone-number")
         return []
 
 
