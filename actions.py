@@ -9,6 +9,25 @@ from rasa_core_sdk.forms import EntityFormField
 from rasa_core_sdk.forms import BooleanFormField
 
 
+class ActionSaveDamageTime(Action):
+    def name(self):
+        # type: () -> Text
+        return "action_save_damage_time"
+
+    def run(self, dispatcher, tracker, domain):
+        return [SlotSet("damage_time", tracker.get_slot("time"))]
+
+
+class ActionSaveDamageDate(Action):
+    def name(self):
+        # type: () -> Text
+        return "action_save_callback_time"
+
+    def run(self, dispatcher, tracker, domain):
+
+        return [SlotSet("callback_time", tracker.get_slot("time"))]
+
+
 class ActionSendEmail(Action):
     def name(self):
         # type: () -> Text
@@ -165,9 +184,10 @@ class ActionAskContactDetails(FormAction):
     def required_fields():
         return [
             EntityFormField("form_of_address", "form_of_address"),
-            EntityFormField("entity_PER", "PER"),
+            EntityFormField("first_name", "first_name"),
             EntityFormField("surname", "surname"),
             EntityFormField("street_address", "street_address"),
+            EntityFormField("number", "number"),
             EntityFormField("number", "number"),
             EntityFormField("address_city", "address_city"),
             EntityFormField("phone-number", "phone-number"),
@@ -183,13 +203,6 @@ class ActionAskContactDetails(FormAction):
         SlotSet("phone_number_user", tracker.get_slot("phone-number"))
         return []
 
-class ActionSaveStreetNumber(Action):
-    def name(self):
-        return "action_save_street_number"
-
-    def run(self, dispatcher, tracker, domain):
-        SlotSet("street_number", tracker.get_slot("number"))
-        return []
 
 class ActionAskBranch(FormAction):
 
