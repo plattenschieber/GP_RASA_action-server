@@ -34,10 +34,10 @@ class ActionSaveUserPhoneNumber(Action):
         return "action_save_user_phone_number"
 
     def run(self, dispatcher, tracker, domain):
-		if tracker.get_slot("phone-number") is not None:
-			return[SlotSet("user_phone_number", tracker.get_slot("phone-number")), SlotSet("phone-number", None), SlotSet("crf-phone-number",None)]
-		if tracker.get_slot("crf-phone-number") is not None:
-			return[SlotSet("user_phone_number", tracker.get_slot("crf-phone-number")), SlotSet("phone-number", None), SlotSet("crf-phone-number",None)]
+        if tracker.get_slot("phone-number") is not None:
+            return[SlotSet("user_phone_number", tracker.get_slot("phone-number")), SlotSet("phone-number", None), SlotSet("crf-phone-number",None)]
+        if tracker.get_slot("crf-phone-number") is not None:
+            return[SlotSet("user_phone_number", tracker.get_slot("crf-phone-number")), SlotSet("phone-number", None), SlotSet("crf-phone-number",None)]
 
 class ActionSaveUserEmail(Action):
     def name(self):
