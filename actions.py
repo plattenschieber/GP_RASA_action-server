@@ -392,3 +392,14 @@ class ActionAskInsuredPartyDriverInformations(FormAction):
 
     def submit(self, dispatcher, tracker, domain):
         return []
+
+# DONT DELETE THIS ONE
+class ActionSafeStreetAddress(Action):
+    def name(self):
+        return "action_safe_street_address"
+
+    def run(self, dispatcher, tracker, domain):
+        street = tracker.get_slot("street")
+        house_number = tracker.get_slot("house_number")
+
+        return [SlotSet("street_address", str(street + " " + house_number))]
