@@ -18,7 +18,7 @@ class ActionSaveDamageTime(Action):
         return [SlotSet("damage_time", tracker.get_slot("time"))]
 
 
-class ActionSaveDamageDate(Action):
+class ActionSaveCallbackTime(Action):
     def name(self):
         # type: () -> Text
         return "action_save_callback_time"
@@ -26,6 +26,28 @@ class ActionSaveDamageDate(Action):
     def run(self, dispatcher, tracker, domain):
 
         return [SlotSet("callback_time", tracker.get_slot("time"))]
+
+
+class ActionSaveUserPhoneNumber(Action):
+    def name(self):
+        # type: () -> Text
+        return "action_save_user_phone_number"
+
+    def run(self, dispatcher, tracker, domain):
+
+        return[SlotSet("user_phone_number", tracker.get_slot("phone-number"))]
+
+
+class ActionSaveUserEmail(Action):
+    def name(self):
+        # type: () -> Text
+        return "action_save_user_email"
+
+    def run(self, dispatcher, tracker, domain):
+        user_email = tracker.get_slot("user_email")
+        if user_email is not None:
+            SlotSet("user_email", None)
+        return[SlotSet("user_email", tracker.get_slot("email"))]
 
 
 class ActionSendEmail(Action):
