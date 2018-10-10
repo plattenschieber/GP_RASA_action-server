@@ -203,13 +203,13 @@ class ActionSafeStreetAddress(Action):
         return "action_safe_street_address"
 
     def run(self, dispatcher, tracker, domain):
-        street = next(tracker.get_latest_entity_value('street'), None)
-        house_number = next(tracker.get_latest_entity_value('house_number'), None)
+        street = tracker.get_slot("street")
+        house_number = tracker.get_slot("house_number")
 
-        if not street:
+        if street is None:
             dispatcher.utter_message("Bitte schreiben Sie auch ihr Strassenname gemeinsam mit Ihrer Hausnummer")
             return [UserUtteranceReverted()]
-        elif not house_number:
+        elif house_number is None:
             dispatcher.utter_message("Bitte schreiben Sie auch ihre Hausnummer gemeinsam mit Ihrer Strassenname")
             return [UserUtteranceReverted()]
 
