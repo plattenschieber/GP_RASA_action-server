@@ -203,14 +203,19 @@ class ActionSendEmail(Action):
 
         return [ConversationResumed()]
 
-
-# DONT DELETE THIS ONE
 class ActionSafeStreetAddress(Action):
     def name(self):
         return "action_safe_street_address"
 
     def run(self, dispatcher, tracker, domain):
-        street = tracker.get_slot("street")
-        house_number = tracker.get_slot("house_number")
+        street = next(tracker.get_latest_entity_value('street'), None)
+        house_number = next(tracker.get_latest_entity_value('house_number'), None)
+
+        if not street:
+            dispatcher.utter_message("Bitte schreiben Sie auch ihr Strassenname gemeinsam mit Ihrer Hausnummer")
+            return [UserUtteranceReverted()]
+        elif not house_number:
+            dispatcher.utter_message("Bitte schreiben Sie auch ihre Hausnummer gemeinsam mit Ihrer Strassenname")
+            return [UserUtteranceReverted()]
 
         return [SlotSet("street_address", str(street + " " + house_number))]
