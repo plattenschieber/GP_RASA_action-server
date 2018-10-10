@@ -35,7 +35,6 @@ class ActionSaveUserPhoneNumber(Action):
     def run(self, dispatcher, tracker, domain):
 
         phone = tracker.get_slot("phone-number")
-        print("TEST: " + str(phone))
         if tracker.get_slot("phone-number") is not None:
             user_phone = tracker.get_slot("phone-number")
             return [SlotSet("user_phone_number", user_phone)]
