@@ -24,7 +24,6 @@ class ActionSaveCallbackTime(Action):
         return "action_save_callback_time"
 
     def run(self, dispatcher, tracker, domain):
-
         return [SlotSet("callback_time", tracker.get_slot("time"))]
 
 
@@ -34,10 +33,16 @@ class ActionSaveUserPhoneNumber(Action):
         return "action_save_user_phone_number"
 
     def run(self, dispatcher, tracker, domain):
+
+        phone = tracker.get_slot("phone-number")
+        print("TEST: " + str(phone))
         if tracker.get_slot("phone-number") is not None:
-            return[SlotSet("user_phone_number", tracker.get_slot("phone-number")), SlotSet("phone-number", None), SlotSet("crf-phone-number",None)]
+            user_phone = tracker.get_slot("phone-number")
+            return [SlotSet("user_phone_number", user_phone)]
         if tracker.get_slot("crf-phone-number") is not None:
-            return[SlotSet("user_phone_number", tracker.get_slot("crf-phone-number")), SlotSet("phone-number", None), SlotSet("crf-phone-number",None)]
+            user_phone = tracker.get_slot("crf-phone-number")
+            return [SlotSet("user_phone_number", user_phone)]
+
 
 class ActionSaveUserEmail(Action):
     def name(self):
@@ -48,7 +53,7 @@ class ActionSaveUserEmail(Action):
         user_email = tracker.get_slot("user_email")
         if user_email is not None:
             SlotSet("user_email", None)
-        return[SlotSet("user_email", tracker.get_slot("email"))]
+        return [SlotSet("user_email", tracker.get_slot("email"))]
 
 
 class ActionSendEmail(Action):
@@ -123,7 +128,7 @@ class ActionSendEmail(Action):
         damage_report_by = tracker.get_slot("damage_report_by")
 
         # Überprüfung, wer der Fahrer war:
-        if(insured_party_is_driver == True):
+        if (insured_party_is_driver == True):
             surname_of_driver = surname
             first_name_of_driver = first_name
 
@@ -138,7 +143,7 @@ class ActionSendEmail(Action):
         # region fill email_content
         email_content = file.format(form_of_address=form_of_address, surname=surname, first_name=first_name,
                                     street_address=street_address,
-                                    street_number= street_number,
+                                    street_number=street_number,
                                     address_zip_code=address_zip_code, address_city=address_city,
                                     phone_number=phone_number, email=email, insurance_number=insurance_number,
                                     license_plate=license_plate, car_is_damaged=car_is_damaged,
