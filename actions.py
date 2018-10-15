@@ -126,20 +126,3 @@ class ActionSaveStreetAddress(Action):
             return [UserUtteranceReverted()]
 
         return [SlotSet("street_address", str(street + " " + house_number))]
-
-class ActionSaveZipCity(Action):
-    def name(self):
-        return "action_save_zip_city"
-
-    def run(self, dispatcher, tracker, domain):
-        zip_code = tracker.get_slot("zip")
-        city = tracker.get_slot("city")
-
-        if zip_code is None:
-            dispatcher.utter_message("Bitte schreiben Sie auch ihre Postleitzahl gemeinsam mit Ihrem Wohnort")
-            return [UserUtteranceReverted()]
-        elif city is None:
-            dispatcher.utter_message("Bitte schreiben Sie auch ihr Wohnort gemeinsam mit Ihrer Postleitzahl")
-            return [UserUtteranceReverted()]
-
-        return [SlotSet("zip_city", str(zip_code + " " + city))]
