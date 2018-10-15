@@ -1,7 +1,7 @@
 # Action Server for the Chatbot
 Custom Action server build with rasa.ai, used to execute custom actions for the chatbot.
 
-##Structure
+## Structure
 
 * *actions.py* this file contains all custom action for the chatbot and will start a http server to communicate with.
 * *docker* contains the docker-compose file.
