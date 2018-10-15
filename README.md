@@ -1,20 +1,32 @@
-# gpb-chatbot-action-server
-Rasa Action Server with costum actions for rasa core
+# Action Server for the Chatbot
+Custom Action server build with rasa.ai, used to execute custom actions for the chatbot.
 
-## Install Steps
+##Structure
+
+* *actions.py* this file contains all custom action for the chatbot and will start a http server to communicate with.
+* *docker* contains the docker-compose file.
+
+## Deploy and run the project
+
+### locally
+First you need to install the requirements by using the provided 'requirements.txt'. To achieve this you can run the following command:
 ```bash
 pip install -r requirements.txt
 ```
-## How to run
+In order to run the action server, you have to execute the next command in a terminal window:
 ```bash
 python -m rasa_core_sdk.endpoint --actions actions
 ```
 
-## Docker
-Diesem Projekt liegt eine Dockerfile und ein Docker-Compose bei, diese stellen das Projekt als Docker-Container zu Verfügung.
-Um das Image zu bauen und zu starten müssen die folgenden Befehle ausgeführt werden.
-
+### Build
+To deploy and run this project docker is mandatory, you would need to install docker as well as docker stack or docker compose. 
+You can run the build by the following command. We will tag the image with our docker registry url and the projects name.
 ```bash
 docker build -t docker.nexus.gpchatbot.archi-lab.io/chatbot/action-server .
-docker-compose -p gpb -f docker/docker-compose.yaml up -d
+```
+
+### Run
+To run the project simply type the following command:
+```bash
+docker-compose -f docker/docker-compose.yaml up -d
 ```
