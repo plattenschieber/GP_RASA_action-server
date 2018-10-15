@@ -1,12 +1,10 @@
-from rasa_core_sdk import Action
-from rasa_core_sdk.events import ConversationResumed, UserUtteranceReverted, SlotSet
-import smtplib
 import email.message
 import io
+import smtplib
+
+from rasa_core_sdk import Action
+from rasa_core_sdk.events import ConversationResumed, UserUtteranceReverted
 from rasa_core_sdk.events import SlotSet
-from rasa_core_sdk.forms import FormAction
-from rasa_core_sdk.forms import EntityFormField
-from rasa_core_sdk.forms import BooleanFormField
 
 
 class ActionSaveDamageTime(Action):
@@ -51,6 +49,42 @@ class ActionSaveUserEmail(Action):
     def run(self, dispatcher, tracker, domain):
 
         return[SlotSet("user_email", tracker.get_slot("email"))]
+
+
+class ActionSaveStreetAddress(Action):
+    def name(self):
+        return "action_save_street_address"
+
+    def run(self, dispatcher, tracker, domain):
+        street = next(tracker.get_latest_entity_values('street'), None)
+        house_number = next(tracker.get_latest_entity_values('house_number'), None)
+
+        if not street:
+            dispatcher.utter_message("Bitte geben Sie den Straßennamen zusätzlich zu Ihrer Hausnummer an")
+            return [UserUtteranceReverted()]
+        elif not house_number:
+            dispatcher.utter_message("Bitte geben Sie die Hausnummer zusätzlich zu Ihrem Straßennamen an")
+            return [UserUtteranceReverted()]
+
+        return [SlotSet("street_address", str(street + " " + house_number))]
+
+
+class ActionSaveZipCity(Action):
+    def name(self):
+        return "action_save_zip_city"
+
+    def run(self, dispatcher, tracker, domain):
+        zip_code = tracker.get_slot("zip")
+        city = tracker.get_slot("city")
+
+        if zip_code is None:
+            dispatcher.utter_message("Bitte schreiben Sie auch ihre Postleitzahl gemeinsam mit Ihrem Wohnort")
+            return [UserUtteranceReverted()]
+        elif city is None:
+            dispatcher.utter_message("Bitte schreiben Sie auch ihr Wohnort gemeinsam mit Ihrer Postleitzahl")
+            return [UserUtteranceReverted()]
+
+        return [SlotSet("zip_city", str(zip_code + " " + city))]
 
 
 class ActionSendEmail(Action):
@@ -108,21 +142,3 @@ class ActionSendEmail(Action):
         print(tracker.latest_message)
 
         return [ConversationResumed()]
-
-
-class ActionSaveStreetAddress(Action):
-    def name(self):
-        return "action_save_street_address"
-
-    def run(self, dispatcher, tracker, domain):
-        street = next(tracker.get_latest_entity_values('street'), None)
-        house_number = next(tracker.get_latest_entity_values('house_number'), None)
-
-        if not street:
-            dispatcher.utter_message("Bitte geben Sie den Straßennamen zusätzlich zu Ihrer Hausnummer an")
-            return [UserUtteranceReverted()]
-        elif not house_number:
-            dispatcher.utter_message("Bitte geben Sie die Hausnummer zusätzlich zu Ihrem Straßennamen an")
-            return [UserUtteranceReverted()]
-
-        return [SlotSet("street_address", str(street + " " + house_number))]
